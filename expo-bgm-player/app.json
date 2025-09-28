@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Expo BGM Player",
+    "slug": "expo-bgm-player",
+    "scheme": "expobgm",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": false,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio",
+          "audio"
+        ]
+      },
+      "bundleIdentifier": "com.example.expobgmplayer"
+    },
+    "android": {
+      "package": "com.example.expobgmplayer",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "foregroundService": {
+        "notificationChannelName": "Playback"
+      },
+      "permissions": [
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "WAKE_LOCK",
+        "BLUETOOTH_CONNECT"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
