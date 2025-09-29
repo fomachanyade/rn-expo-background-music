@@ -18,8 +18,11 @@
       "infoPlist": {
         "UIBackgroundModes": [
           "audio",
+          "audio",
+          "audio",
           "audio"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       },
       "bundleIdentifier": "com.example.expobgmplayer"
     },
@@ -43,6 +46,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1da7c715-d6e1-43e4-8a56-e78bab1ec421"
+      }
     }
   }
 }

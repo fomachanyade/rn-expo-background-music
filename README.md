@@ -69,13 +69,26 @@ npx expo start --dev-client
 - Press `i` for the iOS simulator, `a` for Android. To target a specific simulator, boot it manually and set `EXPO_IOS_SIMULATOR_DEVICE="iPhone 16"` before running `expo start`.
 - If Metro logs a React renderer mismatch, stop all Metro instances and rerun with `npx expo start --dev-client --clear`.
 
+## Share builds with teammates (EAS)
+
+```bash
+cd expo-bgm-player
+npx eas login                     # once per machine
+npx eas build -p ios --profile development --non-interactive
+npx eas build -p android --profile development --non-interactive
+```
+
+- Development profile produces dev clients suitable for scanning the Metro QR code.
+- The Android command prints a link (and QR) to the signed `.apk`; the iOS command yields a build you can distribute via TestFlight or install locally with `eas device:create` + `eas build -p ios --profile development`.
+- Add `--tunnel` to `expo start --dev-client` so remote teammates can load your Metro bundle without VPN.
+
 ## Debugging tips
 
 - Shake the device (or press `Cmd+D` / `Ctrl+M`) to open the Expo dev menu in the development build.
 - The Metro terminal streams logs; use `r` to reload, `m` to toggle the menu, `shift+m` for more tools.
 - Background playback may log "player is not initialized" if remote controls fire before `setupPlayer` completes; playback continues once initialization finishes.
 
-## Maintenance notes
+-## Maintenance notes
 
-- Android build currently patches `node_modules/react-native-track-player/android/src/main/java/com/doublesymmetry/trackplayer/module/MusicModule.kt` to handle nullable bundles. Reapply after reinstalling dependencies or maintain a fork.
+- Android build patches `react-native-track-player` via `patch-package` (see `patches/react-native-track-player+4.1.2.patch`) so nullable bundles compile on both local and EAS builds. `npm install` automatically reapplies the patch via the `postinstall` script.
 - Keep `newArchEnabled` set to `false` in `app.json` unless React Native Track Player gains full Fabric compatibility.
