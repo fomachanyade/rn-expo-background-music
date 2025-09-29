@@ -6,8 +6,14 @@
 - [x] Added TrackPlayer service (`service.ts`) with background event handlers and iOS audio session category.
 - [x] Updated `index.ts` to register the TrackPlayer service and `App.tsx` with minimal playback UI/logic.
 - [x] Installed native assets (`android/`, `ios/`) via `npx expo prebuild`.
-- [ ] `npx expo run:ios` (blocked: CocoaPods CLI not linked; install manually with `brew link cocoapods` and rerun).
-- [ ] `npx expo run:android` (not attempted; requires Android env).
+- [x] `npx expo run:ios` (CocoaPods relinked, Metro cache cleared, React 19.1.0 alignment; dev client now boots simulator).
+- [x] `npx expo run:android` (installed Temurin 17 JDK, configured `ANDROID_HOME`, added `local.properties`, patched RNTP nullable bundle handling; Pixel 7a dev client running).
+
+Follow-up fixes:
+- Resolved CocoaPods CLI path (`brew unlink cocoapods && brew link cocoapods`) and `~/.netrc` permissions (chmod 600) before re-running iOS build.
+- Downgraded `react`/`@types/react` to 19.1.0 and restarted Metro (`--clear`) to eliminate renderer mismatch errors.
+- Installed Temurin 17 (`brew install --cask temurin17`), exported `JAVA_HOME`, and ensured `sdk.dir` in `android/local.properties` for Gradle.
+- Patched `node_modules/react-native-track-player/.../MusicModule.kt` to guard nullable `originalItem` bundles (must reapply after reinstalling deps).
 
 Notes:
 - `npx expo prebuild` succeeded after removing the TrackPlayer config plugin entry (library does not ship one). iOS audio session is forced via `TrackPlayer.updateOptions`.
